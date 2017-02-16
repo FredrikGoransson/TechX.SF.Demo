@@ -4,9 +4,12 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.ServiceFabric.Services.Runtime;
+using SpeakerActor.Interfaces;
 
 namespace WebScraperService
 {
@@ -15,9 +18,23 @@ namespace WebScraperService
 	/// </summary>
 	internal sealed class WebScraperService : StatelessService
 	{
+		private readonly IActorProxyFactory _actorProxyFactory;
+		private readonly IServiceProxyFactory _serviceProxyFactory;
+		private readonly string _speakerActorApplicationName;
+		private readonly string _speakerActorServiceName;
+		private readonly Uri _speakerActorServiceUri;
+
 		public WebScraperService(StatelessServiceContext context)
 			: base(context)
-		{ }
+		{
+			_actorProxyFactory = new ActorProxyFactory();
+			_serviceProxyFactory = new ServiceProxyFactory();//retrySettings: new OperationRetrySettings(TimeSpan.FromMilliseconds(3), TimeSpan.FromMilliseconds(3), 1));
+
+			_speakerActorApplicationName = FabricRuntime.GetActivationContext().ApplicationName;
+			_speakerActorServiceName = $"{typeof(ISpeakerActor).Name.Substring(1)}Service";
+			_speakerActorServiceUri = new Uri($"{_speakerActorApplicationName}/{_speakerActorServiceName}");
+
+		}
 
 		/// <summary>
 		/// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.
@@ -38,6 +55,7 @@ namespace WebScraperService
 
 			var actorProxyFactory = new ActorProxyFactory();
 			var readSpeakers = new List<string>();
+			var readSessions = new List<string>();
 
 			var scraper = new Scraper(this.Context);
 
@@ -53,6 +71,11 @@ namespace WebScraperService
 					if (!readSpeakers.Contains(speaker.GetShortHash()))
 					{
 						ServiceEventSource.Current.ServiceMessage(this.Context, $"Found new/updated speaker {speaker.Name}");
+
+						var speakerActor = actorProxyFactory.CreateActorProxy<ISpeakerActor>(new ActorId(speaker.Name));
+						var speakerInfoAsync = speakerActor.SetSpeakerInfoAsync(speaker.ToSpeakerInfo(), cancellationToken);
+						tasks.Add(speakerInfoAsync);
+
 						readSpeakers.Add(speaker.GetShortHash());
 					}
 				}
@@ -65,7 +88,16 @@ namespace WebScraperService
 
 				foreach (var speaker in speakers)
 				{
-					ServiceEventSource.Current.ServiceMessage(this.Context, $"Updating {speaker.Sessions.Count} sessions for speaker {speaker.Name}");
+					if (!readSessions.Contains(speaker.Sessions.GetShortHash()))
+					{
+						ServiceEventSource.Current.ServiceMessage(this.Context, $"Updating {speaker.Sessions.Count} sessions for speaker {speaker.Name}");
+
+						var speakerActor = actorProxyFactory.CreateActorProxy<ISpeakerActor>(new ActorId(speaker.Name));
+						var sessionsAsync = speakerActor.SetSessionsAsync(speaker.Sessions.Select(session => session.ToSessionInfo()).ToArray(), cancellationToken);
+						tasks.Add(sessionsAsync);
+
+						readSessions.Add(speaker.Sessions.GetShortHash());
+					}
 				}
 				await Task.WhenAll(tasks);
 

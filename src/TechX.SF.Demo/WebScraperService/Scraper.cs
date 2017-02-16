@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using SpeakerActor.Interfaces;
 
 namespace WebScraperService
 {
@@ -79,8 +80,8 @@ namespace WebScraperService
 				"http://www.techx.se/agenda-16-feb/",
 				"http://www.techx.se/agenda17-februari/"
 			};
-			var days = new int[] { 13, 14, 15, 16, 17 };
-			var pages = pageUris.Select((pageUri, i) => new { PageUri = pageUri, Date = new DateTime(2017, 02, days[i]) });
+			var days = new int[] {13, 14, 15, 16, 17};
+			var pages = pageUris.Select((pageUri, i) => new {PageUri = pageUri, Date = new DateTime(2017, 02, days[i])});
 
 			var sessions = new List<Session>();
 			foreach (var page in pages)
@@ -156,37 +157,65 @@ namespace WebScraperService
 			}
 		}
 
-		public class Session
+	}
+
+	public class Session
+	{
+		public string[] Target { get; set; }
+		public int Level { get; set; }
+		public string Title { get; set; }
+		public string Content { get; set; }
+		public string Speakers { get; set; }
+		public DateTime Date { get; set; }
+
+		public SessionInfo ToSessionInfo()
 		{
-			public string[] Target { get; set; }
-			public int Level { get; set; }
-			public string Title { get; set; }
-			public string Content { get; set; }
-			public string Speakers { get; set; }
-			public DateTime Date { get; set; }
-
-			public string GetShortHash()
+			return new SessionInfo()
 			{
-				return Scraper.GetShortHash($"{Title}-{Content}-{Speakers}-{Date.ToShortDateString()}");
-			}
-		}
-
-		public class Speaker
-		{
-			public Speaker()
-			{
-				Sessions = new List<Session>();
-			}
-
-			public string Name { get; set; }
-			public string Bio { get; set; }
-
-			public List<Session> Sessions { get; set; }
-
-			public string GetShortHash()
-			{
-				return Scraper.GetShortHash($"{Name}-{Bio}");
-			}
+				Title = Title,
+				Content = Content,
+				Date = Date,
+				Target = Target,
+				Level = Level,
+			};
 		}
 	}
+
+	public static class SessionsExtensions
+	{
+		public static string GetShortHash(this IEnumerable<Session> sessions)
+		{
+			var content = sessions.Select(session => $"{session.Title}-{session.Content}-{session.Speakers}-{session.Date.ToShortDateString()}")
+				.Aggregate("", (a, v) => a + v);
+			return Scraper.GetShortHash(content);
+		}
+	}
+
+	public class Speaker
+	{
+		public Speaker()
+		{
+			Sessions = new List<Session>();
+		}
+
+		public string Name { get; set; }
+		public string Bio { get; set; }
+
+		public List<Session> Sessions { get; set; }
+
+		public string GetShortHash()
+		{
+			return Scraper.GetShortHash($"{Name}-{Bio}");
+		}
+
+		public SpeakerInfo ToSpeakerInfo()
+		{
+			return new SpeakerInfo()
+			{
+				Name = Name,
+				Bio = Bio,
+			};
+		}
+	}
+
 }
