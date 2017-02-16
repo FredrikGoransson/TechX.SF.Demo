@@ -69,6 +69,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISpeakerActorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ISpeakerActor.cs" />
     <Compile Include="SessionInfo.cs" />
