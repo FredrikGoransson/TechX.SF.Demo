@@ -3,10 +3,16 @@
   <Parameters>
     <Parameter Name="WebScraperService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="WebApiService_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="SpeakerActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="SpeakerActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="SpeakerActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="SpeakerActorPkg" ServiceManifestVersion="1.0.0" />
+  </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="WebScraperServicePkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
@@ -30,6 +36,11 @@
       <StatelessService ServiceTypeName="WebApiServiceType" InstanceCount="[WebApiService_InstanceCount]">
         <SingletonPartition />
       </StatelessService>
+    </Service>
+    <Service Name="SpeakerActorService" GeneratedIdRef="e9b7772a-e372-4e51-969c-aaba3b9cb1fd|Persisted">
+      <StatefulService ServiceTypeName="SpeakerActorServiceType" TargetReplicaSetSize="[SpeakerActorService_TargetReplicaSetSize]" MinReplicaSetSize="[SpeakerActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[SpeakerActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
     </Service>
   </DefaultServices>
 </ApplicationManifest>

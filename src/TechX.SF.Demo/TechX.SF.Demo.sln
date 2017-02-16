@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiService", "WebApiServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebScraperService", "WebScraperService\WebScraperService.csproj", "{8BDBB89F-4CAD-43C0-89A6-27564370FEC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakerActor", "SpeakerActor\SpeakerActor.csproj", "{76BDD867-2074-441F-8336-AE01ADB1E1A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakerActor.Interfaces", "SpeakerActor.Interfaces\SpeakerActor.Interfaces.csproj", "{B2ED962A-592D-4C61-922D-F7F5A76694CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -29,6 +33,14 @@ Global
 		{8BDBB89F-4CAD-43C0-89A6-27564370FEC3}.Debug|x64.Build.0 = Debug|x64
 		{8BDBB89F-4CAD-43C0-89A6-27564370FEC3}.Release|x64.ActiveCfg = Release|x64
 		{8BDBB89F-4CAD-43C0-89A6-27564370FEC3}.Release|x64.Build.0 = Release|x64
+		{76BDD867-2074-441F-8336-AE01ADB1E1A2}.Debug|x64.ActiveCfg = Debug|x64
+		{76BDD867-2074-441F-8336-AE01ADB1E1A2}.Debug|x64.Build.0 = Debug|x64
+		{76BDD867-2074-441F-8336-AE01ADB1E1A2}.Release|x64.ActiveCfg = Release|x64
+		{76BDD867-2074-441F-8336-AE01ADB1E1A2}.Release|x64.Build.0 = Release|x64
+		{B2ED962A-592D-4C61-922D-F7F5A76694CF}.Debug|x64.ActiveCfg = Debug|x64
+		{B2ED962A-592D-4C61-922D-F7F5A76694CF}.Debug|x64.Build.0 = Debug|x64
+		{B2ED962A-592D-4C61-922D-F7F5A76694CF}.Release|x64.ActiveCfg = Release|x64
+		{B2ED962A-592D-4C61-922D-F7F5A76694CF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

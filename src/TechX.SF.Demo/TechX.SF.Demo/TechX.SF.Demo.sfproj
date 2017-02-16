@@ -29,6 +29,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SpeakerActor\SpeakerActor.csproj" />
     <ProjectReference Include="..\WebApiService\WebApiService.csproj" />
     <ProjectReference Include="..\WebScraperService\WebScraperService.csproj" />
   </ItemGroup>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="SpeakerActorPkg" Version="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <ServiceTypes>
+    <StatefulServiceType ServiceTypeName="SpeakerActorServiceType" HasPersistedState="true">
+      <Extensions>
+        <Extension Name="__GeneratedServiceType__" GeneratedId="e9b7772a-e372-4e51-969c-aaba3b9cb1fd|Persisted">
+          <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
+            <DefaultService Name="SpeakerActorService" />
+            <ServiceEndpoint Name="SpeakerActorServiceEndpoint" />
+            <ReplicatorEndpoint Name="SpeakerActorServiceReplicatorEndpoint" />
+            <ReplicatorConfigSection Name="SpeakerActorServiceReplicatorConfig" />
+            <ReplicatorSecurityConfigSection Name="SpeakerActorServiceReplicatorSecurityConfig" />
+            <StoreConfigSection Name="SpeakerActorServiceLocalStoreConfig" />
+          </GeneratedNames>
+        </Extension>
+      </Extensions>
+    </StatefulServiceType>
+  </ServiceTypes>
+  <CodePackage Name="Code" Version="1.0.0">
+    <EntryPoint>
+      <ExeHost>
+        <Program>SpeakerActor.exe</Program>
+      </ExeHost>
+    </EntryPoint>
+  </CodePackage>
+  <ConfigPackage Name="Config" Version="1.0.0" />
+  <Resources>
+    <Endpoints>
+      <Endpoint Name="SpeakerActorServiceEndpoint" />
+      <Endpoint Name="SpeakerActorServiceReplicatorEndpoint" />
+    </Endpoints>
+  </Resources>
+  <!-- The content will be generated during build -->
+</ServiceManifest>
