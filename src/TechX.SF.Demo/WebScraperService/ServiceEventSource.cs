@@ -152,6 +152,38 @@ namespace WebScraperService
 		{
 			WriteEvent(ServiceRequestStopEventId, requestTypeName, exception);
 		}
+
+		[NonEvent]
+		public void SpeakerFound(StatelessServiceContext serviceContext, Speaker speaker)
+		{
+			SpeakerFound(
+				serviceContext.ServiceName.ToString(),
+				serviceContext.ServiceTypeName,
+				serviceContext.InstanceId,
+				serviceContext.PartitionId,
+				serviceContext.CodePackageActivationContext.ApplicationName,
+				serviceContext.CodePackageActivationContext.ApplicationTypeName,
+				serviceContext.NodeContext.NodeName,
+				speaker.Name,
+				speaker.Bio);
+		}
+
+		private const int SpeakerFoundEventId = 7;
+		[Event(SpeakerFoundEventId, Level = EventLevel.Informational, Message = "Speaker found/updated '{7}'")]
+		public void SpeakerFound(
+			string serviceName,
+			string serviceTypeName,
+			long replicaOrInstanceId,
+			Guid partitionId,
+			string applicationName,
+			string applicationTypeName,
+			string nodeName,
+			string speakerName,
+			string speakerBio)
+		{
+			WriteEvent(ServiceMessageEventId, serviceName, serviceTypeName, replicaOrInstanceId, partitionId, applicationName, applicationTypeName, nodeName, speakerName, speakerBio);
+		}
+
 		#endregion
 
 		#region Private methods

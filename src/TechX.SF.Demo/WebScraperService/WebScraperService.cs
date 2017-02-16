@@ -70,7 +70,7 @@ namespace WebScraperService
 				{
 					if (!readSpeakers.Contains(speaker.GetShortHash()))
 					{
-						ServiceEventSource.Current.ServiceMessage(this.Context, $"Found new/updated speaker {speaker.Name}");
+						ServiceEventSource.Current.SpeakerFound(this.Context, speaker);
 
 						var speakerActor = actorProxyFactory.CreateActorProxy<ISpeakerActor>(new ActorId(speaker.Name));
 						var speakerInfoAsync = speakerActor.SetSpeakerInfoAsync(speaker.ToSpeakerInfo(), cancellationToken);
