@@ -22,7 +22,7 @@ namespace SpeakerActor
 				// For more information, see https://aka.ms/servicefabricactorsplatform
 
 				ActorRuntime.RegisterActorAsync<SpeakerActor>(
-				   (context, actorType) => new ActorService(context, actorType)).GetAwaiter().GetResult();
+				   (context, actorType) => new SpeakerActorService(context, actorType)).GetAwaiter().GetResult();
 
 				Thread.Sleep(Timeout.Infinite);
 			}

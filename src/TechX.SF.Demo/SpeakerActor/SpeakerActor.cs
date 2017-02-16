@@ -13,7 +13,7 @@ namespace SpeakerActor
 		internal const string StateKeySpeakerInfo = "speaker_info";
 		internal const string StateKeySessionInfo = "session_info";
 
-		public SpeakerActor(ActorService actorService, ActorId actorId)
+		public SpeakerActor(SpeakerActorService actorService, ActorId actorId)
 			: base(actorService, actorId)
 		{
 		}
