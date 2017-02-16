@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Fabric;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.ServiceFabric.Actors.Client;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
@@ -32,18 +34,45 @@ namespace WebScraperService
 		/// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
 		protected override async Task RunAsync(CancellationToken cancellationToken)
 		{
-			// TODO: Replace the following sample code with your own logic 
-			//       or remove this RunAsync override if it's not needed in your service.
-
 			long iterations = 0;
+
+			var actorProxyFactory = new ActorProxyFactory();
+			var readSpeakers = new List<string>();
+
+			var scraper = new Scraper(this.Context);
 
 			while (true)
 			{
 				cancellationToken.ThrowIfCancellationRequested();
 
-				ServiceEventSource.Current.ServiceMessage(this.Context, "Working-{0}", ++iterations);
+				var speakers = await scraper.ScanSpeakers();
 
-				await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+				var tasks = new List<Task>();
+				foreach (var speaker in speakers)
+				{
+					if (!readSpeakers.Contains(speaker.GetShortHash()))
+					{
+						ServiceEventSource.Current.ServiceMessage(this.Context, $"Found new/updated speaker {speaker.Name}");
+						readSpeakers.Add(speaker.GetShortHash());
+					}
+				}
+				await Task.WhenAll(tasks);
+
+				var sessions = await scraper.ScanSessions();
+				tasks = new List<Task>();
+
+				scraper.AddSessionsToSpeakers(speakers, sessions);
+
+				foreach (var speaker in speakers)
+				{
+					ServiceEventSource.Current.ServiceMessage(this.Context, $"Updating {speaker.Sessions.Count} sessions for speaker {speaker.Name}");
+				}
+				await Task.WhenAll(tasks);
+
+
+				ServiceEventSource.Current.ServiceMessage(this.Context, "Scanning sessions-{0}", ++iterations);
+
+				await Task.Delay(TimeSpan.FromSeconds(20), cancellationToken);
 			}
 		}
 	}
