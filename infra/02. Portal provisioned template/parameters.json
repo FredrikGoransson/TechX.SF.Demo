@@ -1,0 +1,75 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "clusterName": {
+            "value": "ce-cluster-dev"
+        },
+        "clusterLocation": {
+            "value": "westeurope"
+        },
+        "computeLocation": {
+            "value": "westeurope"
+        },
+        "adminUserName": {
+            "value": "yoape"
+        },
+        "adminPassword": {
+            "value": null
+        },
+        "nicName": {
+            "value": "NIC-ce-cluster-dev"
+        },
+        "publicIPAddressName": {
+            "value": "ce-cluster-dev-PubIP"
+        },
+        "vmStorageAccountName": {
+            "value": "sfvmceclusterdev9462"
+        },
+        "dnsName": {
+            "value": "ce-cluster-dev"
+        },
+        "virtualNetworkName": {
+            "value": "VNet-ce-cluster-dev"
+        },
+        "lbName": {
+            "value": "LB-ce-cluster-dev"
+        },
+        "lbIPName": {
+            "value": "LBIP-ce-cluster-dev"
+        },
+        "applicationDiagnosticsStorageAccountName": {
+            "value": "sfdgceclusterdev6224"
+        },
+        "supportLogStorageAccountName": {
+            "value": "sflogsceclusterdev5113"
+        },
+        "sourceVaultValue": {
+            "value": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-common-dev/providers/Microsoft.KeyVault/vaults/ce-vault-dev"
+        },
+        "certificateUrlValue": {
+            "value": "https://ce-vault-dev.vault.azure.net:443/secrets/ce-demo-clustercert-dev/337de30ee3054136922c335155147138"
+        },
+        "certificateThumbprint": {
+            "value": "7561B45A283D985056B8187923103F093FEA6372"
+        },
+        "nt0ephemeralStartPort": {
+            "value": 49152
+        },
+        "nt0ephemeralEndPort": {
+            "value": 65534
+        },
+        "nt0applicationStartPort": {
+            "value": 20000
+        },
+        "nt0applicationEndPort": {
+            "value": 30000
+        },
+        "nt0fabricTcpGatewayPort": {
+            "value": 19000
+        },
+        "nt0fabricHttpGatewayPort": {
+            "value": 19080
+        }
+    }
+}

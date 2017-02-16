@@ -1,0 +1,84 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachineScaleSets_main_adminPassword": {
+            "value": null
+        },
+        "virtualMachineScaleSets_main_name": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_name": {
+            "value": null
+        },
+        "publicIPAddresses_LBIP_ce_cluster_dev_0_name": {
+            "value": null
+        },
+        "virtualNetworks_VNet_ce_cluster_dev_name": {
+            "value": null
+        },
+        "clusters_ce_cluster_dev_name": {
+            "value": null
+        },
+        "storageAccounts_scnqu4v6xg25k100_name": {
+            "value": null
+        },
+        "storageAccounts_scnqu4v6xg25k101_name": {
+            "value": null
+        },
+        "storageAccounts_scnqu4v6xg25k102_name": {
+            "value": null
+        },
+        "storageAccounts_scnqu4v6xg25k103_name": {
+            "value": null
+        },
+        "storageAccounts_scnqu4v6xg25k104_name": {
+            "value": null
+        },
+        "storageAccounts_sfdgceclusterdev5637_name": {
+            "value": null
+        },
+        "storageAccounts_sflogsceclusterdev7672_name": {
+            "value": null
+        },
+        "virtualMachineScaleSets_main_id": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_1": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_2": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_3": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_4": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_5": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_6": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_7": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_8": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_9": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_10": {
+            "value": null
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_11": {
+            "value": null
+        }
+    }
+}

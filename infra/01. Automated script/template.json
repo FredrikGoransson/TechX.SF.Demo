@@ -1,0 +1,711 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachineScaleSets_main_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "virtualMachineScaleSets_main_name": {
+            "defaultValue": "main",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_name": {
+            "defaultValue": "LB-ce-cluster-dev-main",
+            "type": "String"
+        },
+        "publicIPAddresses_LBIP_ce_cluster_dev_0_name": {
+            "defaultValue": "LBIP-ce-cluster-dev-0",
+            "type": "String"
+        },
+        "virtualNetworks_VNet_ce_cluster_dev_name": {
+            "defaultValue": "VNet-ce-cluster-dev",
+            "type": "String"
+        },
+        "clusters_ce_cluster_dev_name": {
+            "defaultValue": "ce-cluster-dev",
+            "type": "String"
+        },
+        "storageAccounts_scnqu4v6xg25k100_name": {
+            "defaultValue": "scnqu4v6xg25k100",
+            "type": "String"
+        },
+        "storageAccounts_scnqu4v6xg25k101_name": {
+            "defaultValue": "scnqu4v6xg25k101",
+            "type": "String"
+        },
+        "storageAccounts_scnqu4v6xg25k102_name": {
+            "defaultValue": "scnqu4v6xg25k102",
+            "type": "String"
+        },
+        "storageAccounts_scnqu4v6xg25k103_name": {
+            "defaultValue": "scnqu4v6xg25k103",
+            "type": "String"
+        },
+        "storageAccounts_scnqu4v6xg25k104_name": {
+            "defaultValue": "scnqu4v6xg25k104",
+            "type": "String"
+        },
+        "storageAccounts_sfdgceclusterdev5637_name": {
+            "defaultValue": "sfdgceclusterdev5637",
+            "type": "String"
+        },
+        "storageAccounts_sflogsceclusterdev7672_name": {
+            "defaultValue": "sflogsceclusterdev7672",
+            "type": "String"
+        },
+        "virtualMachineScaleSets_main_id": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-common-dev/providers/Microsoft.KeyVault/vaults/ce-vault-dev",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/frontendIPConfigurations/LoadBalancerIPConfig",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_1": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/backendAddressPools/LoadBalancerBEAddressPool",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_2": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/probes/FabricGatewayProbe",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_3": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/frontendIPConfigurations/LoadBalancerIPConfig",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_4": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/backendAddressPools/LoadBalancerBEAddressPool",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_5": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/probes/FabricHttpGatewayProbe",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_6": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/frontendIPConfigurations/LoadBalancerIPConfig",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_7": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/frontendIPConfigurations/LoadBalancerIPConfig",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_8": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/frontendIPConfigurations/LoadBalancerIPConfig",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_9": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/frontendIPConfigurations/LoadBalancerIPConfig",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_10": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/frontendIPConfigurations/LoadBalancerIPConfig",
+            "type": "String"
+        },
+        "loadBalancers_LB_ce_cluster_dev_main_id_11": {
+            "defaultValue": "/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main/frontendIPConfigurations/LoadBalancerIPConfig",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Compute/virtualMachineScaleSets/main'.",
+            "type": "Microsoft.Compute/virtualMachineScaleSets",
+            "sku": {
+                "name": "Standard_A1_v2",
+                "tier": "Standard",
+                "capacity": 5
+            },
+            "name": "[parameters('virtualMachineScaleSets_main_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "westeurope",
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "ce-cluster-dev"
+            },
+            "properties": {
+                "upgradePolicy": {
+                    "mode": "Automatic"
+                },
+                "virtualMachineProfile": {
+                    "osProfile": {
+                        "computerNamePrefix": "[parameters('virtualMachineScaleSets_main_name')]",
+                        "adminUsername": "yoape",
+                        "windowsConfiguration": {
+                            "provisionVMAgent": true,
+                            "enableAutomaticUpdates": true
+                        },
+                        "secrets": [
+                            {
+                                "sourceVault": {
+                                    "id": "[parameters('virtualMachineScaleSets_main_id')]"
+                                },
+                                "vaultCertificates": [
+                                    {
+                                        "certificateUrl": "https://ce-vault-dev.vault.azure.net:443/secrets/ce-demo-clustercert-dev/ee8e7fe6a1164da4ae1897aa5ac04b96"
+                                    }
+                                ]
+                            }
+                        ],
+                        "adminPassword": "[parameters('virtualMachineScaleSets_main_adminPassword')]"
+                    },
+                    "storageProfile": {
+                        "osDisk": {
+                            "vhdContainers": [
+                                "https://scnqu4v6xg25k100.blob.core.windows.net/vhds",
+                                "https://scnqu4v6xg25k101.blob.core.windows.net/vhds",
+                                "https://scnqu4v6xg25k102.blob.core.windows.net/vhds",
+                                "https://scnqu4v6xg25k103.blob.core.windows.net/vhds",
+                                "https://scnqu4v6xg25k104.blob.core.windows.net/vhds"
+                            ],
+                            "name": "vmssosdisk",
+                            "createOption": "FromImage",
+                            "caching": "ReadOnly"
+                        },
+                        "imageReference": {
+                            "publisher": "MicrosoftWindowsServer",
+                            "offer": "WindowsServer",
+                            "sku": "2012-R2-Datacenter",
+                            "version": "latest"
+                        }
+                    },
+                    "networkProfile": {
+                        "networkInterfaceConfigurations": [
+                            {
+                                "name": "NIC-ce-cluster-dev-0",
+                                "properties": {
+                                    "primary": true,
+                                    "ipConfigurations": [
+                                        {
+                                            "name": "NIC-ce-cluster-dev-0",
+                                            "properties": {
+                                                "subnet": {
+                                                    "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNet_ce_cluster_dev_name')), '/subnets/Subnet-0')]"
+                                                },
+                                                "loadBalancerBackendAddressPools": [
+                                                    {
+                                                        "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_ce_cluster_dev_main_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                    }
+                                                ],
+                                                "loadBalancerInboundNatPools": [
+                                                    {
+                                                        "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_ce_cluster_dev_main_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "extensionProfile": {
+                        "extensions": [
+                            {
+                                "properties": {
+                                    "publisher": "Microsoft.Azure.ServiceFabric",
+                                    "type": "ServiceFabricNode",
+                                    "typeHandlerVersion": "1.0",
+                                    "autoUpgradeMinorVersion": false,
+                                    "settings": {
+                                        "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/c58aac26-a3aa-452c-bb17-e1f42199d08a",
+                                        "nodeTypeRef": "[parameters('virtualMachineScaleSets_main_name')]",
+                                        "dataPath": "D:\\\\SvcFab",
+                                        "durabilityLevel": "Bronze",
+                                        "certificate": {
+                                            "thumbprint": "75E5D1E0B30AC46F71682A4972E9911EADCE05A4",
+                                            "x509StoreName": "My"
+                                        }
+                                    }
+                                },
+                                "name": "[concat(parameters('virtualMachineScaleSets_main_name'),'_ServiceFabricNode')]"
+                            },
+                            {
+                                "properties": {
+                                    "publisher": "Microsoft.Azure.Diagnostics",
+                                    "type": "IaaSDiagnostics",
+                                    "typeHandlerVersion": "1.5",
+                                    "autoUpgradeMinorVersion": true,
+                                    "settings": {
+                                        "WadCfg": {
+                                            "DiagnosticMonitorConfiguration": {
+                                                "overallQuotaInMB": "50000",
+                                                "EtwProviders": {
+                                                    "EtwEventSourceProviderConfiguration": [
+                                                        {
+                                                            "provider": "Microsoft-ServiceFabric-Actors",
+                                                            "scheduledTransferKeywordFilter": "1",
+                                                            "scheduledTransferPeriod": "PT5M",
+                                                            "DefaultEvents": {
+                                                                "eventDestination": "ServiceFabricReliableActorEventTable"
+                                                            }
+                                                        },
+                                                        {
+                                                            "provider": "Microsoft-ServiceFabric-Services",
+                                                            "scheduledTransferPeriod": "PT5M",
+                                                            "DefaultEvents": {
+                                                                "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "EtwManifestProviderConfiguration": [
+                                                        {
+                                                            "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                                            "scheduledTransferLogLevelFilter": "Information",
+                                                            "scheduledTransferKeywordFilter": "4611686018427387904",
+                                                            "scheduledTransferPeriod": "PT5M",
+                                                            "DefaultEvents": {
+                                                                "eventDestination": "ServiceFabricSystemEventTable"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "StorageAccount": "sfdgceclusterdev5637"
+                                    }
+                                },
+                                "name": "VMDiagnosticsVmExt_vmNodeType0Name"
+                            }
+                        ]
+                    }
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNet_ce_cluster_dev_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_ce_cluster_dev_main_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/loadBalancers/LB-ce-cluster-dev-main'.",
+            "type": "Microsoft.Network/loadBalancers",
+            "name": "[parameters('loadBalancers_LB_ce_cluster_dev_main_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "westeurope",
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "ce-cluster-dev"
+            },
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerIPConfig",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_LBIP_ce_cluster_dev_0_name'))]"
+                            }
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "LoadBalancerBEAddressPool"
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "LBRule",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id')]"
+                            },
+                            "frontendPort": 19000,
+                            "backendPort": 19000,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 5,
+                            "protocol": "Tcp",
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_1')]"
+                            },
+                            "probe": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_2')]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "LBHttpRule",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_3')]"
+                            },
+                            "frontendPort": 19080,
+                            "backendPort": 19080,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 5,
+                            "protocol": "Tcp",
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_4')]"
+                            },
+                            "probe": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_5')]"
+                            }
+                        }
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "FabricGatewayProbe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 19000,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    },
+                    {
+                        "name": "FabricHttpGatewayProbe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 19080,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    }
+                ],
+                "inboundNatRules": [
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.0",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_6')]"
+                            },
+                            "frontendPort": 3389,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.1",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_7')]"
+                            },
+                            "frontendPort": 3390,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.2",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_8')]"
+                            },
+                            "frontendPort": 3391,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.3",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_9')]"
+                            },
+                            "frontendPort": 3392,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.4",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_10')]"
+                            },
+                            "frontendPort": 3393,
+                            "backendPort": 3389,
+                            "protocol": "Tcp"
+                        }
+                    }
+                ],
+                "outboundNatRules": [],
+                "inboundNatPools": [
+                    {
+                        "name": "LoadBalancerBEAddressNatPool",
+                        "properties": {
+                            "frontendPortRangeStart": 3389,
+                            "frontendPortRangeEnd": 4500,
+                            "backendPort": 3389,
+                            "protocol": "Tcp",
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_LB_ce_cluster_dev_main_id_11')]"
+                            }
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_LBIP_ce_cluster_dev_0_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/publicIPAddresses/LBIP-ce-cluster-dev-0'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_LBIP_ce_cluster_dev_0_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "westeurope",
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "ce-cluster-dev"
+            },
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "ce-cluster-dev"
+                }
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Network/virtualNetworks/VNet-ce-cluster-dev'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_VNet_ce_cluster_dev_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "westeurope",
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "ce-cluster-dev"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "Subnet-0",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/24"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourcegroups/ce-service-fabric-dev/providers/Microsoft.ServiceFabric/clusters/ce-cluster-dev'.",
+            "type": "Microsoft.ServiceFabric/clusters",
+            "name": "[parameters('clusters_ce_cluster_dev_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "westeurope",
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "ce-cluster-dev"
+            },
+            "properties": {
+                "clusterCodeVersion": "5.4.164.9494",
+                "managementEndpoint": "[concat('https://', parameters('clusters_ce_cluster_dev_name'),'.westeurope.cloudapp.azure.com:19080')]",
+                "certificate": {
+                    "thumbprint": "75E5D1E0B30AC46F71682A4972E9911EADCE05A4",
+                    "x509StoreName": "My"
+                },
+                "clientCertificateThumbprints": [],
+                "clientCertificateCommonNames": [],
+                "fabricSettings": [
+                    {
+                        "name": "Security",
+                        "parameters": [
+                            {
+                                "name": "ClusterProtectionLevel",
+                                "value": "EncryptAndSign"
+                            }
+                        ]
+                    }
+                ],
+                "upgradeDescription": {
+                    "upgradeReplicaSetCheckTimeout": "10675199.02:48:05.4775807",
+                    "healthCheckWaitDuration": "00:05:00",
+                    "healthCheckStableDuration": "00:05:00",
+                    "healthCheckRetryTimeout": "00:45:00",
+                    "upgradeTimeout": "12:00:00",
+                    "upgradeDomainTimeout": "02:00:00",
+                    "healthPolicy": {
+                        "maxPercentUnhealthyNodes": 100,
+                        "maxPercentUnhealthyApplications": 100
+                    },
+                    "deltaHealthPolicy": {
+                        "maxPercentDeltaUnhealthyNodes": 0,
+                        "maxPercentUpgradeDomainDeltaUnhealthyNodes": 0,
+                        "maxPercentDeltaUnhealthyApplications": 0
+                    }
+                },
+                "diagnosticsStorageAccountConfig": {
+                    "storageAccountName": "sflogsceclusterdev7672",
+                    "protectedAccountKeyName": "StorageAccountKey1",
+                    "blobEndpoint": "[concat('https', '://', parameters('storageAccounts_sflogsceclusterdev7672_name'), '.blob.core.windows.net', '/')]",
+                    "queueEndpoint": "[concat('https', '://', parameters('storageAccounts_sflogsceclusterdev7672_name'), '.queue.core.windows.net', '/')]",
+                    "tableEndpoint": "[concat('https', '://', parameters('storageAccounts_sflogsceclusterdev7672_name'), '.table.core.windows.net', '/')]"
+                },
+                "nodeTypes": [
+                    {
+                        "name": "main",
+                        "clientConnectionEndpointPort": 19000,
+                        "httpGatewayEndpointPort": 19080,
+                        "applicationPorts": {
+                            "startPort": 20000,
+                            "endPort": 30000
+                        },
+                        "ephemeralPorts": {
+                            "startPort": 49152,
+                            "endPort": 65534
+                        },
+                        "isPrimary": true,
+                        "vmInstanceCount": 5,
+                        "durabilityLevel": "Bronze"
+                    }
+                ],
+                "vmImage": "Windows",
+                "reliabilityLevel": "Silver",
+                "upgradeMode": "Automatic"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sflogsceclusterdev7672_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Storage/storageAccounts/scnqu4v6xg25k100'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_scnqu4v6xg25k100_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "westeurope",
+            "tags": {
+                "clusterName": "ce-cluster-dev",
+                "resourceType": "Service Fabric"
+            },
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Storage/storageAccounts/scnqu4v6xg25k101'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_scnqu4v6xg25k101_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "westeurope",
+            "tags": {
+                "clusterName": "ce-cluster-dev",
+                "resourceType": "Service Fabric"
+            },
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Storage/storageAccounts/scnqu4v6xg25k102'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_scnqu4v6xg25k102_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "westeurope",
+            "tags": {
+                "clusterName": "ce-cluster-dev",
+                "resourceType": "Service Fabric"
+            },
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Storage/storageAccounts/scnqu4v6xg25k103'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_scnqu4v6xg25k103_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "westeurope",
+            "tags": {
+                "clusterName": "ce-cluster-dev",
+                "resourceType": "Service Fabric"
+            },
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Storage/storageAccounts/scnqu4v6xg25k104'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_scnqu4v6xg25k104_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "westeurope",
+            "tags": {
+                "clusterName": "ce-cluster-dev",
+                "resourceType": "Service Fabric"
+            },
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Storage/storageAccounts/sfdgceclusterdev5637'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_sfdgceclusterdev5637_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "westeurope",
+            "tags": {
+                "clusterName": "ce-cluster-dev",
+                "resourceType": "Service Fabric"
+            },
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/35be3912-f4a0-4696-9494-e7c17651b2f6/resourceGroups/ce-service-fabric-dev/providers/Microsoft.Storage/storageAccounts/sflogsceclusterdev7672'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_sflogsceclusterdev7672_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "westeurope",
+            "tags": {
+                "clusterName": "ce-cluster-dev",
+                "resourceType": "Service Fabric"
+            },
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        }
+    ]
+}
