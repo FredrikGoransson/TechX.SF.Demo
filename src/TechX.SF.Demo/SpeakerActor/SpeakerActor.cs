@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors;
@@ -88,6 +89,48 @@ namespace SpeakerActor
 			}
 			ActorEventSource.Current.ActorMessage(this, $"Failed to read SessionInfo state: It doesn't exist in the StateManager");
 			return null;
+		}
+
+		public async Task<int> GetMultiState()
+		{
+			var state = await this.StateManager.GetStateAsync<int>("multi");
+			return state;
+		}
+
+		public async Task SetMultiState()
+		{
+			await this.StateManager.SetStateAsync("multi", 1);
+			await this.StateManager.SetStateAsync("multi", 2);
+			await this.StateManager.SetStateAsync("multi", 3);
+			await this.StateManager.SaveStateAsync();
+			await this.StateManager.SetStateAsync("multi", 4);
+			await this.StateManager.SetStateAsync("multi", 5);
+			throw new MultiStateException("I has the fail");
+			await this.StateManager.SetStateAsync("multi", 6);
+			await this.StateManager.SetStateAsync("multi", 7);
+			await this.StateManager.SetStateAsync("multi", 8);
+		}
+	}
+
+	[Serializable]
+	public class MultiStateException : Exception
+	{
+		public MultiStateException()
+		{
+		}
+
+		public MultiStateException(string message) : base(message)
+		{
+		}
+
+		public MultiStateException(string message, Exception inner) : base(message, inner)
+		{
+		}
+
+		protected MultiStateException(
+			SerializationInfo info,
+			StreamingContext context) : base(info, context)
+		{
 		}
 	}
 }

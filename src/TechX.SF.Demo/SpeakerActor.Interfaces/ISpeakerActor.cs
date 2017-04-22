@@ -13,5 +13,8 @@ namespace SpeakerActor.Interfaces
 		Task SetSessionsAsync(SessionInfo[] sessionInfo, CancellationToken cancellationToken);
 
 		Task<SessionInfo[]> GetSessionsAsync(CancellationToken cancellationToken);
+
+		Task<int> GetMultiState();
+		Task SetMultiState();
 	}
 }

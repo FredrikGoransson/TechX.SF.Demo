@@ -70,6 +70,17 @@ namespace WebApiService.Controllers
 		{
 			var results = new List<string>();
 
+			var servicePartition = _speakerActorServicePartitions[Environment.TickCount % _speakerActorServicePartitions.Length];
+			var speakerActorService = _serviceProxyFactory.CreateServiceProxy<ISpeakerActorService>(
+				_speakerActorServiceUri,
+				new ServicePartitionKey(servicePartition));
+			var foundResults = await speakerActorService.GetAllSpeakersAsync(CancellationToken.None);
+			foreach (var foundResult in foundResults)
+			{
+				results.Add(foundResult.Name);
+			}
+			return results;
+	/*
 			foreach (var servicePartition in _speakerActorServicePartitions)
 			{
 				var speakerActorService = _serviceProxyFactory.CreateServiceProxy<ISpeakerActorService>(
@@ -81,7 +92,7 @@ namespace WebApiService.Controllers
 					results.Add(foundResult.Name);
 				}
 			}
-
+			*/
 			return results;
 		}
 
@@ -102,5 +113,42 @@ namespace WebApiService.Controllers
 
 			return speaker;
 		}
+
+		[HttpGet]
+		[Route("multi/{id}/set")]
+		public async Task<string> SetMulti(string id)
+		{
+			var cancelationToken = CancellationToken.None;
+			var speakerActor = _actorProxyFactory.CreateActorProxy<ISpeakerActor>(new ActorId(id));
+			try
+			{
+				await speakerActor.SetMultiState();
+			}
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+
+			return @"All good";
+		}
+
+		[HttpGet]
+		[Route("multi/{id}/get")]
+		public async Task<string> GetMulti(string id)
+		{
+			var cancelationToken = CancellationToken.None;
+			var speakerActor = _actorProxyFactory.CreateActorProxy<ISpeakerActor>(new ActorId(id));
+			try
+			{
+				var value = await speakerActor.GetMultiState();
+				return $"Multistate {value}";
+			}
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+		}
+
+
 	}
 }
